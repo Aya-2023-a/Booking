@@ -1558,5 +1558,6 @@ html,body{
 
 .navbar-nav>li>.dropdown-menu{
     background-color: #5fe3fa;
+    text-align: center;
 }
 /*========================Thank you=================*/
