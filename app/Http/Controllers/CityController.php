@@ -39,6 +39,14 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'country_id' => ['required','exists:country,id'],
+            'name' => ['required'],
+        ],[
+            'country_id.required' => 'Please chose country',
+            'name.required' => 'Please Enter name of city',
+        ])->validate();
+
         $city = new City();
         $city->country_id = $request->country_id;
         $city->name = $request->name;
@@ -80,6 +88,14 @@ class CityController extends Controller
      */
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'country_id' => ['required','exists:country,id'],
+            'name' => ['required'],
+        ],[
+            'country_id.required' => 'Please chose country',
+            'name.required' => 'Please Enter name of city',
+        ])->validate();
+        
         $city=City::find($id);
         $city->country_id = $request->country_id; 
         $city->name = $request->name;

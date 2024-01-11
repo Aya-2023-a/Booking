@@ -38,6 +38,18 @@ class AirplaneController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'model' => ['required','unique:airplane'],
+            'airline_id' => ['required','exists:airline,id'],
+            'number_of_seat' => ['required','numeric'],
+        ],[
+            'model.required'=> 'Please Enter model for Airplane',
+            'model.unique'=>'This name is exist please enter new name',
+            'airline_id.required' => 'Please chose Airline',
+            'number_of_seat.required' => 'Please Enter number of seat for Airplane',
+            'number_of_seat.numeric' => 'Please Enter number for number of seat for Airplane',
+        ])->validate();
+      
         $airplane = new Airplane();
         $airplane->model = $request->model;
         $airplane->airline_id = $request->airline_id;
@@ -80,6 +92,17 @@ class AirplaneController extends Controller
      */
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'model' => ['required','unique:airplane'],
+            'airline_id' => ['required','exists:airline,id'],
+            'number_of_seat' => ['required','numeric'],
+        ],[
+            'model.required'=> 'Please Enter model for Airplane',
+            'model.unique'=>'This name is exist please enter new name',
+            'airline_id.required' => 'Please chose Airline',
+            'number_of_seat.required' => 'Please Enter number of seat for Airplane',
+            'number_of_seat.numeric' => 'Please Enter number for number of seat for Airplane',
+        ])->validate();
         $airplane=Airplane::find($id);
         $airplane->model = $request->model;
         $airplane->airline_id = $request->airline_id;

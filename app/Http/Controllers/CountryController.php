@@ -36,6 +36,15 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required'],
+            'country_code' => ['required','unique:country'],
+        ],[
+            'name.required' => 'Please enter name of country',
+            'country_code.required' => 'Please enter code for country',
+            'country_code.unique' => 'This code is exist please enter new code',
+        ])->validate();
+
         $country = new Country();
         $country->name = $request->name;
         $country->country_code = $request->country_code;
@@ -75,6 +84,15 @@ class CountryController extends Controller
      */
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required'],
+            'country_code' => ['required','unique:country'],
+        ],[
+            'name.required' => 'Please enter name of country',
+            'country_code.required' => 'Please enter code for country',
+            'country_code.unique' => 'This code is exist please enter new code',
+        ])->validate();
+        
         $country=Country::find($id);
         $country->name = $request->name;
         $country->country_code = $request->country_code; 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Airline;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class AirlineController extends Controller
 {
@@ -39,6 +41,19 @@ class AirlineController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required','unique:airline'],
+            'address' => ['required'],
+            'website' => ['required'],
+            'phone' => ['required'],
+        ],[
+            'name.required'=> 'Please Enter name for Airline',
+            'name.unique'=>'This name is exist please enter new name',
+            'address.required' => 'Please Enter address for Airline',
+            'website.required' => 'Please Enter website for Airline',
+            'phone.required' => 'Please Enter phone for Airline',
+        ])->validate();
+      
         $airline = new Airline();
         $airline->name = $request->name;
         $airline->address = $request->address;
@@ -81,6 +96,19 @@ class AirlineController extends Controller
      */
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required','unique:airline'],
+            'address' => ['required'],
+            'website' => ['required'],
+            'phone' => ['required'],
+        ],[
+            'name.required'=> 'Please Enter name for Airline',
+            'name.unique'=>'This name is exist please enter new name',
+            'address.required' => 'Please Enter address for Airline',
+            'website.required' => 'Please Enter website for Airline',
+            'phone.required' => 'Please Enter phone for Airline',
+        ])->validate();
+      
         $airline=Airline::find($id);
         $airline->name = $request->name;
         $airline->address = $request->address;
